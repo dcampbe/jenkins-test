@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+  jenkins:
+    build: .
+    image: dcamp/jenkins-test:latest 
+    ports:
+      - "80:8080"
+    volumes:
+      - ${JENKINS_HOME}:/var/jenkins_home
+    secrets:
+      - jenkins-user
+      - jenkins-pass
+  sut:
+    build: ./tests
+    image: jtest
+    links:
+      - jenkins
+    secrets:
+      - jenkins-user
+      - jenkins-pass
+secrets:
+  jenkins-user:
+    external: true
+  jenkins-pass:
+    external: true
