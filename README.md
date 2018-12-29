@@ -1,11 +1,8 @@
 ```sh
-docker swarm init
-docker-compose -f .\docker-compose.yml build
-echo "admin" | docker secret create jenkins-user -
-echo "admin" | docker secret create jenkins-pass -
+docker-compose -f .\docker-compose.test.yml build
 export JENKINS_HOME=/path/to/jenkins/config
 docker-compose config
-docker stack deploy --compose-file=docker-compose.yml jenkins
+docker-compose -f .\docker-compose.test.yml up
 # things
 docker login
 docker image push dcamp/jenkins-test

@@ -1,0 +1,15 @@
+build-timeout
+copyartifact
+description-setter
+email-ext
+github-branch-source
+gradle
+greenballs
+htmlpublisher
+pipeline-github-lib
+plot
+ssh-slaves
+subversion
+timestamper
+workflow-aggregator
+ws-cleanup

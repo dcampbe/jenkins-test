@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts-alpine
+FROM jenkinsci/blueocean:latest
 MAINTAINER Danny Campbell
 ENV JAVA_OPTS "-Djenkins.install.runSetupWizard=false"
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt

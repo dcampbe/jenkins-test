@@ -1,25 +1,18 @@
 version: "3.3"
 services:
   jenkins:
-    build: .
-    image: dcamp/jenkins-test:latest 
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
+    image: dcamp/jenkins-test:latest
     ports:
       - "80:8080"
     volumes:
       - ${JENKINS_HOME}:/var/jenkins_home
-    secrets:
-      - jenkins-user
-      - jenkins-pass
   sut:
-    build: ./tests
-    image: jtest
-    links:
+    build:
+      context: ./tests
+      dockerfile: Dockerfile
+    depends_on:
       - jenkins
-    secrets:
-      - jenkins-user
-      - jenkins-pass
-secrets:
-  jenkins-user:
-    external: true
-  jenkins-pass:
-    external: true
+    command: ["./wait-for-it.sh", "jenkins:80", "--timeout=240", "--", "./run_tests.sh"]

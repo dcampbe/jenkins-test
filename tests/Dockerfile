@@ -1,3 +1,5 @@
-from alpine:latest
-CMD curl -sSL "http://`cat /run/secrets/jenkins_name`:`cat /run/secrets/jenkins_pass`@jenkins/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins" | perl -pe 's/.*?<shortName>([\w-]+).*?<version>([^<]+)()(<\/\w+>)+/\1 \2\n/g'|sed 's/ /:/'
-
+FROM alpine:latest
+RUN apk add --update bash curl perl sed && rm -rf /var/cache/apk/*
+COPY run_tests.sh /
+COPY wait-for-it.sh /
+CMD ["bash", "run_tests.sh"]
