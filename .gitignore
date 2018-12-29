@@ -1,2 +1,5 @@
 # VIM persistent undo
 [._]*.un~
+# VIM temporary
+*~
+
